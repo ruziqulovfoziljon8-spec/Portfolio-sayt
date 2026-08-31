@@ -5,7 +5,7 @@ import Pizza from "../assets/images/pizza111.png";
 import blog from "../assets/images/blog111.png";
 import MovieApp from "../assets/images/movie11.png";
 import barber from "../assets/images/barber11.png";
-import service from "../assets/images/service11.png";
+import service from "../assets/images/service22.png";
 import { useLanguage } from "../context/LanguageContext";
 
 interface Project {
