@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Boshsahifa() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   return (
     <div
@@ -13,7 +15,7 @@ export default function Boshsahifa() {
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#121212",
-        padding: "20px", 
+        padding: "20px",
       }}
     >
       <div
@@ -69,7 +71,7 @@ export default function Boshsahifa() {
               }}
             ></span>
           </span>
-          Portfolio saytimga xush kelibsiz
+          {t("home_badge")}
         </div>
 
         <h1
@@ -82,9 +84,9 @@ export default function Boshsahifa() {
             lineHeight: "1.2",
           }}
         >
-          Assalomu alaykum, Men <br />
+          {t("home_greeting")} <br />
           <span className="glow-text" style={{ color: "#00d2ff" }}>
-            Foziljonman
+            {t("home_name")}
           </span>
         </h1>
 
@@ -98,10 +100,7 @@ export default function Boshsahifa() {
             maxWidth: "500px",
           }}
         >
-          Veb-saytlar va raqamli mahsulotlar yaratish orqali{" "}
-          <br className="br-desktop" />
-          foydalanuvchilar muammolariga zamonaviy <br className="br-desktop" />
-          yechimlar taqdim etaman.
+          {t("home_desc")}
         </p>
 
         <div
@@ -123,7 +122,7 @@ export default function Boshsahifa() {
               transition: "all 0.3s ease",
             }}
           >
-            Loyihalarim
+            {t("home_btn_projects")}
           </button>
 
           <button
@@ -140,7 +139,7 @@ export default function Boshsahifa() {
               transition: "all 0.3s ease",
             }}
           >
-            Bog'lanish
+            {t("home_btn_contact")}
           </button>
         </div>
       </div>

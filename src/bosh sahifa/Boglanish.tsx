@@ -3,12 +3,15 @@ import type { FormEvent } from "react";
 import frame1 from "../assets/images/Frame1.png";
 import frame3 from "../assets/images/Frame3.png";
 import frame4 from "../assets/images/Frame4.png";
+import { useLanguage } from "../context/LanguageContext";
 
 interface SectionTitleProps {
   title: string;
 }
 
 export default function Boglanish() {
+  const { t } = useLanguage();
+
   const [isSent, setIsSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
@@ -37,7 +40,7 @@ export default function Boglanish() {
         setMessage("");
         e.currentTarget.reset();
       } else {
-        alert("Xatolik yuz berdi: " + data.message);
+        alert(t("form_error_prefix") + data.message);
       }
     } catch (error) {
       console.error("Tarmoq xatosi:", error);
@@ -81,24 +84,24 @@ export default function Boglanish() {
 
   return (
     <div className="boglanish-container">
-      <SectionTitle title="Bog'lanish" />
+      <SectionTitle title={t("contact")} />
       <div className="contacts-grid">
         {[
           {
             img: frame1,
-            title: "E-pochta",
+            title: t("contact_email_title"),
             link: "mailto:ruziqulovfoziljon8@gmail.com",
             text: "fozilroziqulov@gmail.com",
           },
           {
             img: frame3,
-            title: "Telegram",
+            title: t("telegram"),
             link: "https://t.me/roziqulovv_01",
             text: "@roziqulovv_01",
           },
           {
             img: frame4,
-            title: "Telefon",
+            title: t("phone"),
             link: "tel:+998948170520",
             text: "+998 (94) 817-05-20",
           },
@@ -126,13 +129,9 @@ export default function Boglanish() {
         ))}
       </div>
 
-      <SectionTitle title="So’rov yuborish" />
+      <SectionTitle title={t("contact_form_title")} />
       <div className="form-wrapper">
-        {isSent && (
-          <div className="success-alert">
-            ✅ So'rov muvaffaqiyatli yuborildi! Tez orada bog'lanamiz.
-          </div>
-        )}
+        {isSent && <div className="success-alert">{t("form_success")}</div>}
 
         <form onSubmit={handleSubmit}>
           <input
@@ -144,24 +143,24 @@ export default function Boglanish() {
 
           <div className="form-grid">
             <div className="input-group">
-              <label>Ismingiz*</label>
+              <label>{t("form_name_label")}</label>
               <input
                 name="name"
                 required
                 type="text"
-                placeholder="Ismingizni kiriting"
+                placeholder={t("form_name_placeholder")}
                 className="custom-input"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="input-group">
-              <label>Manzilingiz (Email)*</label>
+              <label>{t("form_email_label")}</label>
               <input
                 name="email"
                 required
                 type="email"
-                placeholder="Email@example.com"
+                placeholder={t("form_email_placeholder")}
                 className="custom-input"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -170,12 +169,12 @@ export default function Boglanish() {
           </div>
 
           <div style={{ marginBottom: "35px" }}>
-            <label className="label-text">Izohingiz*</label>
+            <label className="label-text">{t("form_message_label")}</label>
             <textarea
               name="message"
               required
               rows={5}
-              placeholder="Xabarlaringizni shu yerga yozing..."
+              placeholder={t("form_message_placeholder")}
               className="custom-input"
               style={{ resize: "none" }}
               value={message}
@@ -185,7 +184,7 @@ export default function Boglanish() {
 
           <div style={{ textAlign: "left" }}>
             <button type="submit" disabled={loading} className="submit-btn">
-              {loading ? "Yuborilmoqda..." : "Yuborish"}
+              {loading ? t("form_sending") : t("form_submit")}
             </button>
           </div>
         </form>
@@ -220,7 +219,7 @@ export default function Boglanish() {
         .contact-card span { color: #39965F; font-size: 14px; font-weight: 500; word-break: break-all; text-align: center; }
         .form-wrapper {
           background-color: #141414; padding: 45px; border-radius: 30px;
-          border: 1px solid rgba(255,255,255,0.03); box-shadow: 0 20px 50px rgba(0,0,0,0.5); maxWidth: 1000px;
+          border: 1px solid rgba(255,255,255,0.03); box-shadow: 0 20px 50px rgba(0,0,0,0.5); max-width: 1000px;
         }
         .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-bottom: 25px; }
         .input-group label, .label-text { display: block; margin-bottom: 10px; color: #aaa; font-size: 14px; }

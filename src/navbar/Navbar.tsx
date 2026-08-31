@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 type NavbarProps = {
   toggleSidebar: () => void;
@@ -7,10 +8,11 @@ type NavbarProps = {
 export default function Navbar({ toggleSidebar }: NavbarProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { lang, setLang, t } = useLanguage();
 
   const menuItems = [
     {
-      name: "Bosh sahifa",
+      name: t("home"),
       path: "/",
       icon: (
         <svg
@@ -28,7 +30,7 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
       ),
     },
     {
-      name: "Haqida",
+      name: t("about"),
       path: "/haqida",
       icon: (
         <svg
@@ -47,7 +49,7 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
       ),
     },
     {
-      name: "Loyihalar",
+      name: t("projects"),
       path: "/loyihalar",
       icon: (
         <svg
@@ -67,7 +69,7 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
       ),
     },
     {
-      name: "Bog'lanish",
+      name: t("contact"),
       path: "/boglanish",
       icon: (
         <svg
@@ -101,19 +103,37 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
           </div>
         </div>
 
-        <div className="nav-links-desktop">
-          {menuItems.map((item, idx) => (
+        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          <div className="nav-links-desktop">
+            {menuItems.map((item, idx) => (
+              <button
+                key={idx}
+                onClick={() => navigate(item.path)}
+                className={`nav-item ${
+                  location.pathname === item.path ? "active" : ""
+                }`}
+              >
+                {item.name}
+                <span className="line"></span>
+              </button>
+            ))}
+          </div>
+
+          <div className="lang-switch">
             <button
-              key={idx}
-              onClick={() => navigate(item.path)}
-              className={`nav-item ${
-                location.pathname === item.path ? "active" : ""
-              }`}
+              className={`lang-btn ${lang === "uz" ? "active" : ""}`}
+              onClick={() => setLang("uz")}
             >
-              {item.name}
-              <span className="line"></span>
+              UZ
             </button>
-          ))}
+            <span className="lang-divider">/</span>
+            <button
+              className={`lang-btn ${lang === "en" ? "active" : ""}`}
+              onClick={() => setLang("en")}
+            >
+              EN
+            </button>
+          </div>
         </div>
       </div>
 
@@ -153,6 +173,20 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
         }
         .nav-item.active .line, .nav-item:hover .line { width: 100%; }
 
+        .lang-switch {
+          display: flex; align-items: center; gap: 6px;
+          padding: 6px 10px; border-radius: 20px;
+          background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+        }
+        .lang-btn {
+          background: none; border: none; cursor: pointer; font-size: 12px;
+          font-weight: 700; letter-spacing: 0.5px; color: #71717a; padding: 2px 4px;
+          transition: 0.2s;
+        }
+        .lang-btn.active { color: #00d2ff; }
+        .lang-btn:hover { color: #ffffff; }
+        .lang-divider { color: #3f3f46; font-size: 12px; }
+
         .menu-btn {
           display: none; background: none; border: none; cursor: pointer; padding: 5px;
           flex-direction: column; gap: 4px;
@@ -179,10 +213,13 @@ export default function Navbar({ toggleSidebar }: NavbarProps) {
             border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
             z-index: 1000 !important;
             display: flex !important;
-            justify-content: flex-start !important;
+            justify-content: space-between !important;
           }
           .menu-btn { display: flex !important; margin-right: 5px; }
           .nav-logo { font-size: 18px !important; }
+
+          .lang-switch { padding: 4px 8px; }
+          .lang-btn { font-size: 11px; }
 
           .bottom-nav-mobile { 
             display: flex !important; 

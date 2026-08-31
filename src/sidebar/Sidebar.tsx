@@ -2,7 +2,8 @@ import frame1 from "../assets/images/Frame1.png";
 import frame2 from "../assets/images/Frame2.png";
 import frame3 from "../assets/images/Frame3.png";
 import frame4 from "../assets/images/Frame4.png";
-import ozim from "../assets/images/Ozimm-img.png";
+import ozim from "../assets/images/O'zim11.png";
+import { useLanguage } from "../context/LanguageContext";
 
 type SidebarProps = {
   isOpen: boolean;
@@ -17,6 +18,8 @@ type ContactItemProps = {
 };
 
 export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
+  const { t } = useLanguage();
+
   return (
     <aside
       className={`sidebar-container ${isOpen ? "open" : ""}`}
@@ -123,7 +126,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
               margin: 0,
             }}
           >
-            FRONTEND DEVELOPER
+            {t("role")}
           </p>
         </div>
 
@@ -138,7 +141,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
             borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
           }}
         >
-          {["React", "Node.js", "Frontend", "N1 Bot", "UI/UX"].map((text) => (
+          {["React", "Node.js", "Frontend", "Next.js", "UI/UX"].map((text) => (
             <span
               key={text}
               style={{
@@ -159,25 +162,25 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
         <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
           <ContactItem
             icon={frame1}
-            label="Email"
+            label={t("email")}
             value="fozilroziqulov@gmail.com"
             link="mailto:fozilroziqulov@gmail.com"
           />
           <ContactItem
             icon={frame2}
-            label="Github"
+            label={t("github")}
             value="foziljon-spec"
             link="https://github.com/ruziqulovfoziljon8-spec"
           />
           <ContactItem
             icon={frame3}
-            label="Telegram"
+            label={t("telegram")}
             value="@roziqulovv_01"
             link="https://t.me/roziqulovv_01"
           />
           <ContactItem
             icon={frame4}
-            label="Phone"
+            label={t("phone")}
             value="+998 94 817 05 20"
             link="tel:+998948170520"
           />
@@ -200,6 +203,7 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
             position: fixed !important;
             transform: translateX(-100%);
             left: 0;
+            padding-bottom: 90px;
           }
           .sidebar-container.open {
             transform: translateX(0);
@@ -234,17 +238,21 @@ function ContactItem({ icon, label, value, link }: ContactItemProps) {
     >
       <div
         style={{
-          width: "42px",
-          height: "42px",
+          width: "54px",
+          height: "54px",
           backgroundColor: "rgba(0, 210, 255, 0.12)",
-          borderRadius: "12px",
+          borderRadius: "14px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           flexShrink: 0,
         }}
       >
-        <img src={icon} alt={label} style={{ width: "22px", height: "22px" }} />
+        <img
+          src={icon}
+          alt={label}
+          style={{ width: "34px", height: "34px", objectFit: "contain" }}
+        />
       </div>
       <div
         style={{ display: "flex", flexDirection: "column", overflow: "hidden" }}

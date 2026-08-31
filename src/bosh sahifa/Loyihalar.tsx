@@ -1,11 +1,12 @@
 import { useState } from "react";
 import type { CSSProperties } from "react";
 import NotesApp from "../assets/images/notes 1.png";
-import Pizza from "../assets/images/pizza1.png";
-import blog from "../assets/images/blog1.png";
-import MovieApp from "../assets/images/movie1.png";
-import barber from "../assets/images/barber1.png";
-import service from "../assets/images/service1.png";
+import Pizza from "../assets/images/pizza111.png";
+import blog from "../assets/images/blog111.png";
+import MovieApp from "../assets/images/movie11.png";
+import barber from "../assets/images/barber11.png";
+import service from "../assets/images/service11.png";
+import { useLanguage } from "../context/LanguageContext";
 
 interface Project {
   title: string;
@@ -13,7 +14,7 @@ interface Project {
   live: string;
   status: string;
   tags: string[];
-  description: string;
+  description: { uz: string; en: string };
 }
 
 const projects: Project[] = [
@@ -23,8 +24,10 @@ const projects: Project[] = [
     live: "https://pizza-project-six-ashy.vercel.app/",
     status: "Active",
     tags: ["Vite", "TailwindCSS", "ReactJS", "Redux"],
-    description:
-      "🍕 Pizza Delivery – Bu loyiha React va Redux Toolkit yordamida yaratilgan bo'lib, foydalanuvchilarga pittsa buyurtma qilish imkonini beradi.",
+    description: {
+      uz: "🍕 Pizza Delivery – Bu loyiha React va Redux Toolkit yordamida yaratilgan bo'lib, foydalanuvchilarga pittsa buyurtma qilish imkonini beradi.",
+      en: "🍕 Pizza Delivery – This project is built with React and Redux Toolkit, letting users order pizza online.",
+    },
   },
   {
     title: "Smart Notes",
@@ -32,8 +35,10 @@ const projects: Project[] = [
     live: "https://notes-item.vercel.app/",
     status: "Active",
     tags: ["React", "Context API", "Framer Motion"],
-    description:
-      "📝 Smart Notes – Muhim qaydlarni saqlash uchun mo'ljallangan ilova. Context API orqali ma'lumotlar boshqariladi.",
+    description: {
+      uz: "📝 Smart Notes – Muhim qaydlarni saqlash uchun mo'ljallangan ilova. Context API orqali ma'lumotlar boshqariladi.",
+      en: "📝 Smart Notes – An app designed for saving important notes. Data is managed through the Context API.",
+    },
   },
   {
     title: "Personal Blog",
@@ -41,8 +46,10 @@ const projects: Project[] = [
     live: "https://maqola-sayt.vercel.app/blog",
     status: "Active",
     tags: ["Next.js", "TypeScript", "Sanity"],
-    description:
-      "✍️ Personal Blog – Next.js va Sanity CMS yordamida qurilgan zamonaviy blog platformasi. SEO optimizatsiya qilingan.",
+    description: {
+      uz: "✍️ Personal Blog – Next.js va Sanity CMS yordamida qurilgan zamonaviy blog platformasi. SEO optimizatsiya qilingan.",
+      en: "✍️ Personal Blog – A modern blog platform built with Next.js and Sanity CMS, optimized for SEO.",
+    },
   },
   {
     title: "Movie App",
@@ -50,8 +57,10 @@ const projects: Project[] = [
     live: "https://movie-app-one-pink.vercel.app/",
     status: "Active",
     tags: ["React", "API", "Movies"],
-    description:
-      "🎬O'zingizga yoqadigan Filmlarni Qiyinchiliksiz toping! Ushbu ilova orqali filmlar haqida ma'lumot olishingiz mumkin.",
+    description: {
+      uz: "🎬O'zingizga yoqadigan Filmlarni Qiyinchiliksiz toping! Ushbu ilova orqali filmlar haqida ma'lumot olishingiz mumkin.",
+      en: "🎬 Find movies you'll love with ease! This app lets you get information about movies effortlessly.",
+    },
   },
   {
     title: "Barber Master",
@@ -59,8 +68,10 @@ const projects: Project[] = [
     live: "https://barber-shop-beta-coral.vercel.app/",
     status: "Active",
     tags: ["TailwindCSS", "Barber", "Booking"],
-    description:
-      "💈 Barber Master – Onlayn navbat olish va sartaroshlar xizmatidan foydalanish uchun qulay platforma.",
+    description: {
+      uz: "💈 Barber Master – Onlayn navbat olish va sartaroshlar xizmatidan foydalanish uchun qulay platforma.",
+      en: "💈 Barber Master – A convenient platform for booking appointments and using barber services online.",
+    },
   },
   {
     title: "Premium Service",
@@ -68,12 +79,16 @@ const projects: Project[] = [
     live: "https://avto-service-pi.vercel.app/",
     status: "Active",
     tags: ["React", "Services", "UI/UX"],
-    description:
-      "⚙️ Premium Service – Mijozlarga yuqori sifatli xizmat ko'rsatish va buyurtmalarni boshqarish tizimi.",
+    description: {
+      uz: "⚙️ Premium Service – Mijozlarga yuqori sifatli xizmat ko'rsatish va buyurtmalarni boshqarish tizimi.",
+      en: "⚙️ Premium Service – A system for delivering high-quality service to clients and managing orders.",
+    },
   },
 ];
 
 const Loyihalar = () => {
+  const { t, lang } = useLanguage();
+
   const [search, setSearch] = useState("");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
@@ -128,11 +143,14 @@ const Loyihalar = () => {
       <div style={{ maxWidth: "1250px", margin: "0 auto" }}>
         <div style={headerSectionStyle}>
           <h1 style={titleStyle} className="header-title">
-            Mening <span style={{ color: "#39965F" }}>Loyihalarim</span>
+            {t("projects_title_prefix")}{" "}
+            <span style={{ color: "#39965F" }}>
+              {t("projects_title_highlight")}
+            </span>
           </h1>
           <input
             type="text"
-            placeholder="Texnologiya yoki nom bo'yicha qidirish..."
+            placeholder={t("projects_search_placeholder")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             style={inputStyle}
@@ -191,7 +209,7 @@ const Loyihalar = () => {
                           fontWeight: "700",
                         }}
                       >
-                        ACTIVE
+                        {t("projects_status_active")}
                       </span>
                     </div>
                   </div>
@@ -209,14 +227,13 @@ const Loyihalar = () => {
         ) : (
           <div style={notFoundContainerStyle}>
             <div style={notFoundIconStyle}>📭</div>
-            <h3 style={notFoundTitleStyle}>Bunday ma'lumot mavjud emas</h3>
+            <h3 style={notFoundTitleStyle}>{t("projects_not_found_title")}</h3>
             <p style={notFoundDescStyle}>
-              Kechirasiz, "
+              {t("projects_not_found_desc_prefix")}
               <span style={{ color: "#39965F", fontWeight: "600" }}>
                 {search}
               </span>
-              " kalit so'zi bo'yicha hech qanday loyiha yoki texnologiya
-              topilmadi.
+              {t("projects_not_found_desc_suffix")}
             </p>
           </div>
         )}
@@ -248,7 +265,7 @@ const Loyihalar = () => {
               className="modal-img"
             />
             <div style={{ padding: "20px" }}>
-              <p style={modalDescStyle}>{selectedProject.description}</p>
+              <p style={modalDescStyle}>{selectedProject.description[lang]}</p>
             </div>
           </div>
         </div>

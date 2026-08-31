@@ -15,6 +15,7 @@ import image3 from "../assets/images/image3.png";
 import image4 from "../assets/images/image4.png";
 import dowloa1 from "../assets/images/download 1.png";
 import dowload2 from "../assets/images/dowload2.png";
+import { useLanguage } from "../context/LanguageContext";
 
 const tools = [
   { name: "HTML", img: html },
@@ -28,8 +29,32 @@ const tools = [
 ];
 
 export default function Haqida() {
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [hovered, setHovered] = useState<number | null>(null);
+
+  const abilities = [
+    {
+      t: t("ability_seo_title"),
+      d: t("ability_seo_desc"),
+      i: image1,
+    },
+    {
+      t: t("ability_design_title"),
+      d: t("ability_design_desc"),
+      i: image2,
+    },
+    {
+      t: t("ability_quality_title"),
+      d: t("ability_quality_desc"),
+      i: image3,
+    },
+    {
+      t: t("ability_speed_title"),
+      d: t("ability_speed_desc"),
+      i: image4,
+    },
+  ];
 
   const SectionTitle = ({ title }: { title: string }) => (
     <div style={{ marginBottom: "40px", position: "relative" }}>
@@ -55,30 +80,18 @@ export default function Haqida() {
       <div className="bg-blur" />
 
       <section className="about-section">
-        <SectionTitle title="Men haqimda" />
+        <SectionTitle title={t("about_title")} />
         <div style={{ maxWidth: "900px" }}>
-          <p className="about-text">
-            Men{" "}
-            <span style={{ color: "#39965F", fontWeight: "700" }}>
-              Ro'ziqulov Foziljon
-            </span>{" "}
-            veb dasturchisiman. Yoshim 21 da, Buxoro viloyati Qorakol tumanida
-            tug'ilganman. Qiziqarli, ko’p funksionallika ega bo’lgan va kuchli
-            dizaynga ega bo’lgan dasturlar yaratishga qiziqaman.
-          </p>
-          <p className="about-text">
-            Mening vazifam veb saytni foydalanuvchilarga qulay, sayt dizayni
-            foydalanuvchilarga jalb qiluvchi lekin ayni paytda tezkor bo'lishini
-            taminlashdir!
-          </p>
+          <p className="about-text">{t("about_p1")}</p>
+          <p className="about-text">{t("about_p2")}</p>
           <button onClick={() => navigate("/boglanish")} className="main-btn">
-            Bog'lanish
+            {t("contact")}
           </button>
         </div>
       </section>
 
       <section className="tools-section">
-        <SectionTitle title="Asbob-uskunalar" />
+        <SectionTitle title={t("tools_title")} />
         <div className="tools-grid">
           {tools.map((tool, index) => (
             <div
@@ -98,30 +111,9 @@ export default function Haqida() {
       </section>
 
       <section className="abilities-section">
-        <SectionTitle title="Nimalar qila olaman" />
+        <SectionTitle title={t("abilities_title")} />
         <div className="abilities-grid">
-          {[
-            {
-              t: "SEO",
-              d: "Qidiruv tizimining natijalarida sayt reytingini yaxshilash",
-              i: image1,
-            },
-            {
-              t: "Dizayn",
-              d: "Kuchli dizayn va kichik detallargacha e’tibor berish",
-              i: image2,
-            },
-            {
-              t: "Sifat",
-              d: "Yuqori darajada saytlarni sifatli ishlab chiqish",
-              i: image3,
-            },
-            {
-              t: "Tezkorlik",
-              d: "Qisqa muddat ichida tezkor sayt ishlab chiqish",
-              i: image4,
-            },
-          ].map((item, index) => (
+          {abilities.map((item, index) => (
             <div key={index} className="ability-card">
               <img src={item.i} alt={item.t} className="ability-icon" />
               <div>
@@ -134,7 +126,7 @@ export default function Haqida() {
       </section>
 
       <section className="clients-section">
-        <SectionTitle title="Mijozlar" />
+        <SectionTitle title={t("clients_title")} />
         <div className="clients-flex">
           {[dowloa1, dowload2, null, null].map((img, idx) => (
             <div key={idx} className="client-card">
@@ -160,19 +152,19 @@ export default function Haqida() {
         .section-h2 { font-size: 36px; }
         .title-line { width: 100px; box-shadow: 0 0 15px rgba(57, 150, 95, 0.5); }
 
-        .about-text { color: #a1a1aa; fontSize: 19px; line-height: 1.8; margin-bottom: 25px; }
+        .about-text { color: #a1a1aa; font-size: 19px; line-height: 1.8; margin-bottom: 25px; }
 
         .main-btn {
           padding: 16px 45px; background-color: #39965F; color: white; border-radius: 15px;
-          border: none; fontWeight: 800; cursor: pointer; transition: 0.4s; fontSize: 16px;
-          boxShadow: 0 10px 30px rgba(57, 150, 95, 0.3);
+          border: none; font-weight: 800; cursor: pointer; transition: 0.4s; font-size: 16px;
+          box-shadow: 0 10px 30px rgba(57, 150, 95, 0.3);
         }
 
         .tools-grid {
           display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px;
         }
         .tool-card {
-          height: 110px; border-radius: 20px; backgroundColor: #141414;
+          height: 110px; border-radius: 20px; background-color: #141414;
           display: flex; align-items: center; justify-content: center;
           transition: 0.4s; cursor: pointer; border: 1px solid rgba(255,255,255,0.05);
         }
@@ -187,7 +179,7 @@ export default function Haqida() {
           display: flex; align-items: center; gap: 20px; border: 1px solid rgba(255,255,255,0.03); transition: 0.4s;
         }
         .ability-icon { width: 50px; height: 50px; }
-        .ability-title { fontSize: 22px; margin: 0 0 8px; color: #fff; }
+        .ability-title { font-size: 22px; margin: 0 0 8px; color: #fff; }
         .ability-desc { color: #888; margin: 0; font-size: 15px; line-height: 1.5; }
 
         .clients-flex { display: flex; gap: 20px; flex-wrap: wrap; }
