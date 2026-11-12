@@ -48,6 +48,7 @@ export default function Boglanish() {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     if (!isSent) {
       return;
@@ -188,6 +189,7 @@ export default function Boglanish() {
           </div>
         </form>
       </div>
+
       <style>{`
         .boglanish-container {
           width: 100%; min-height: 100vh; background-color: #0A0A0A; color: white;
